@@ -1,0 +1,59 @@
+general {
+    output_format="i3bar"
+    colors=true
+    interval=5
+}
+
+order += "disk /"
+order += "disk /home"
+order += "wireless wlp58s0"
+order += "battery 0"
+order += "cpu_temperature 0"
+order += "volume master"
+order += "load"
+order += "tztime local"
+
+wireless wlp53s0 {
+    format_up = "W: (%quality at %essid, %bitrate) %ip"
+    format_down = "W: down"
+}
+
+battery 0 {
+    format = "%status %percentage %remaining %emptytime"
+    format_down = "No battery"
+    status_chr = "⚡"
+    status_bat = "🔋"
+    status_unk = "?"
+    status_full = "☻"
+    path = "/sys/class/power_supply/BAT%d/uevent"
+    low_threshold = 10
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M:%S"
+}
+
+load {
+    format = "%1min %5min %15min"
+}
+
+cpu_temperature 0 {
+    format = "CPU %degrees°C"
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+}
+
+disk "/" {
+    format = "/ %free"
+}
+
+disk "/home" {
+    format = "/home %free"
+}
+
+volume master {
+    format = "♪: %volume"
+    format_muted = "♪: muted (%volume)"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
