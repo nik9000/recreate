@@ -3,4 +3,6 @@ Rebuild my laptop.
 ```
 sudo dnf install git
 git clone git@github.com:nik9000/recreate.git
+bash recreate.sh
+sudo reboot
 ```
