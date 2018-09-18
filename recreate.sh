@@ -46,6 +46,7 @@ sudo dnf update -y
 
 header "Install vim"
 sudo dnf install -y vim
+append ~/.bashrc "export EDITOR=vim"
 
 header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
@@ -62,10 +63,9 @@ sudo dnf install -y VirtualBox
 header "Install VSCode"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf check-update
 sudo dnf install -y code
 
-header "Instal Javas"
+header "Install Javas"
 sudo dnf install -y java-1.8.0-openjdk-devel java-9-openjdk-devel java-10-openjdk-devel java-11-openjdk-devel
 cat <<__BASH | tee ~/.java_env
 export JAVA8_HOME=/usr/lib/jvm/java-1.8.0
@@ -76,9 +76,12 @@ export JAVA_HOME=\$JAVA10_HOME
 __BASH
 append ~/.bashrc "source ~/.java_env"
 
+header "Install Slack"
+sudo rpm -i https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
 
 
 
+## Make sure this is last so it can overwrite
 header "Setting up config"
 mkdir -p ~/.config/i3
 cp $DIR/config/i3/config ~/.config/i3/config
