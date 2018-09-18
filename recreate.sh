@@ -6,7 +6,7 @@ set +o pipefail
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 header() {
-    printf "====================%-30s====================\n" "$1"
+    printf "==================== %-30s ====================\n" "$1"
 }
 
 append() {
@@ -14,7 +14,6 @@ append() {
     LINE="$2"
     grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 }
-export -f append
 
 header "Caching sudo privileges"
 sudo echo "got 'em"
@@ -53,7 +52,7 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3 i3status i3lock xautolock
+sudo dnf install -y i3 i3status i3lock xautolock compton
 
 header "Install background manager"
 sudo dnf install -y feh
@@ -78,7 +77,7 @@ __BASH
 append ~/.bashrc "source ~/.java_env"
 
 header "Install Slack"
-sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
+rpm -q slack || sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
 
 ## Make sure these are near the end so they can overwrite installs
 header "Setting up config"
@@ -86,11 +85,16 @@ mkdir -p ~/.config/i3
 cp $DIR/config/i3/config ~/.config/i3/config
 mkdir -p ~/.config/i3status
 cp $DIR/config/i3status/config ~/.config/i3status/config
+mkdir -p ~/.config/compton
+cp $DIR/config/compton/config ~/.config/compton/config
 cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
 cp $DIR/config/xresources/Xresources ~/.Xresources
 git config --global user.name "Nik Everett"
 git config --global user.email "nik9000@gmail.com"
-append fs.inotify.max_user_watches=524288 /etc/sysctl.conf
+sudo tee /etc/sysctl.d/max_user_watches.conf << __CONF
+fs.inotify.max_user_watches=524288
+__CONF
+
 
 header "Code"
 mkdir -p ~/Code/Elastic/Elasticsearch
