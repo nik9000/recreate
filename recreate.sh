@@ -51,16 +51,10 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3
+sudo dnf install -y i3 i3status
 
 header "Install background manager"
 sudo dnf install -y feh
-
-header "Setting up config"
-mkdir -p ~/.config/i3
-cp $DIR/config/i3/config ~/.config/i3/config
-mkdir -p ~/.config/i3status
-cp $DIR/config/i3status/config ~/.config/i3status/config
 
 header "Install VirtualBox"
 sudo dnf install -y VirtualBox
@@ -82,3 +76,13 @@ export JAVA_HOME=\$JAVA10_HOME
 __BASH
 append ~/.bashrc "source ~/.java_env"
 
+
+
+
+header "Setting up config"
+mkdir -p ~/.config/i3
+cp $DIR/config/i3/config ~/.config/i3/config
+mkdir -p ~/.config/i3status
+cp $DIR/config/i3status/config ~/.config/i3status/config
+cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
+cp $DIR/config/xresources/Xresources ~/.Xresources
