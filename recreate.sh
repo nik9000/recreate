@@ -14,6 +14,7 @@ append() {
     LINE="$2"
     grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 }
+export -f append
 
 header "Caching sudo privileges"
 sudo echo "got 'em"
@@ -52,7 +53,7 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3 i3status
+sudo dnf install -y i3 i3status i3lock xautolock
 
 header "Install background manager"
 sudo dnf install -y feh
@@ -79,7 +80,7 @@ append ~/.bashrc "source ~/.java_env"
 header "Install Slack"
 sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
 
-## Make sure this is last so it can overwrite
+## Make sure these are near the end so they can overwrite installs
 header "Setting up config"
 mkdir -p ~/.config/i3
 cp $DIR/config/i3/config ~/.config/i3/config
@@ -89,3 +90,13 @@ cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
 cp $DIR/config/xresources/Xresources ~/.Xresources
 git config --global user.name "Nik Everett"
 git config --global user.email "nik9000@gmail.com"
+append fs.inotify.max_user_watches=524288 /etc/sysctl.conf
+
+header "Code"
+mkdir -p ~/Code/Elastic/Elasticsearch
+pushd ~/Code/Elastic/Elasticsearch
+ls | grep -qF elasticsearch || git clone git@github.com:nik9000/elasticsearch.git -o nik9000
+cd elasticsearch
+git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
+popd
+

@@ -1,5 +1,12 @@
+Xft.dpi: 220
+
 URxvt*font: xft:Hermit:medium:size=12:antialiasing=true
 URxvt*boldFont: xft:Hermit:bold:size=12:antialiasing=true:style=medium
 URxvt*italicFont: xft:Hermit:medium:size=12:antialiasing=true:style=medium
 URxvt*boldItalicFont: xft:Hermit:bold:size=12:antialiasing=true:style=medium
-Xft.dpi: 220
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+
+
