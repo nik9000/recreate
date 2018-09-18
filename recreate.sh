@@ -77,9 +77,7 @@ __BASH
 append ~/.bashrc "source ~/.java_env"
 
 header "Install Slack"
-sudo rpm -i https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
-
-
+sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
 
 ## Make sure this is last so it can overwrite
 header "Setting up config"
@@ -89,3 +87,5 @@ mkdir -p ~/.config/i3status
 cp $DIR/config/i3status/config ~/.config/i3status/config
 cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
 cp $DIR/config/xresources/Xresources ~/.Xresources
+git config --global user.name "Nik Everett"
+git config --global user.email "nik9000@gmail.com"
