@@ -56,6 +56,8 @@ sudo dnf install -y i3 i3status i3lock xautolock
 
 header "Install connman"
 sudo dnf install -y connman
+sudo systemctl enable connman
+sudo systemctl start connman
 
 header "Install background manager"
 sudo dnf install -y feh
