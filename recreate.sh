@@ -52,7 +52,10 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3 i3status i3lock xautolock compton
+sudo dnf install -y i3 i3status i3lock xautolock
+
+header "Install connman"
+sudo dnf install -y connman
 
 header "Install background manager"
 sudo dnf install -y feh
@@ -85,8 +88,6 @@ mkdir -p ~/.config/i3
 cp $DIR/config/i3/config ~/.config/i3/config
 mkdir -p ~/.config/i3status
 cp $DIR/config/i3status/config ~/.config/i3status/config
-mkdir -p ~/.config/compton
-cp $DIR/config/compton/config ~/.config/compton/config
 cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
 cp $DIR/config/xresources/Xresources ~/.Xresources
 git config --global user.name "Nik Everett"
@@ -102,5 +103,6 @@ pushd ~/Code/Elastic/Elasticsearch
 ls | grep -qF elasticsearch || git clone git@github.com:nik9000/elasticsearch.git -o nik9000
 cd elasticsearch
 git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
+git remote add desktop manybubbles@desktop:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
 popd
 

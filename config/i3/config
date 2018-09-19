@@ -141,7 +141,6 @@ bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 5%+ && killall -s SIGUSR1
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-exec --no-startup-id compton --config ~/.config/compton/config -b
 exec --no-startup-id feh --recursive --randomize --bg-scale ~/Pictures
 exec --no-startup-id xset dpms 300
 exec --no-startup-id xautolock -time 5 -locker i3lock
