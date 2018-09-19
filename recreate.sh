@@ -55,7 +55,9 @@ header "Install window manager"
 sudo dnf install -y i3 i3status i3lock xautolock
 
 header "Install connman"
-sudo dnf install -y connman
+sudo dnf install -y connman wpa_supplicant bluez openvpn
+sudo systemctl enable wpa_supplicant
+sudo systemctl start wpa_supplicant
 sudo systemctl enable connman
 sudo systemctl start connman
 
