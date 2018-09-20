@@ -109,6 +109,6 @@ pushd ~/Code/Elastic/Elasticsearch
 ls | grep -qF elasticsearch || git clone git@github.com:nik9000/elasticsearch.git -o nik9000
 cd elasticsearch
 git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
-git remote add desktop manybubbles@desktop:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
+git remote add desktop manybubbles@desktop-remote:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
 popd
 
