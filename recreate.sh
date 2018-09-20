@@ -101,7 +101,7 @@ git config --global user.email "nik9000@gmail.com"
 sudo tee /etc/sysctl.d/max_user_watches.conf << __CONF
 fs.inotify.max_user_watches=524288
 __CONF
-
+append ~/.bashrc "export PATH=\$PATH:~/Bin"
 
 header "Code"
 mkdir -p ~/Code/Elastic/Elasticsearch
@@ -111,4 +111,15 @@ cd elasticsearch
 git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
 git remote add desktop manybubbles@desktop-remote:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
 popd
+cat <<__BASH | tee ~/Bin/esdocs
+#!/bin/bash
 
+~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/reference/index.asciidoc --resource=Elasticsearch/elasticsearch/x-pack/docs/ --chunk 1 --out ~/Code/Elastic/built_docs --open
+__BASH
+chmod +x ~/Bin/esdocs
+cat <<__BASH | tee ~/Bin/esclientdocs
+#!/bin/bash
+
+~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/java-rest/index.asciidoc --chunk 1 --out ~/Code/Elastic/built_docs --open
+__BASH
+chmod +x ~/Bin/esclientdocs
