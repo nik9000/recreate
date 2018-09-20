@@ -56,6 +56,8 @@ sudo dnf install -y i3 i3status i3lock xautolock feh
 
 header "Install connman"
 sudo dnf install -y connman wpa_supplicant bluez openvpn
+sudo systemctl stop NetworkManager.service
+sudo systemctl disable NetworkManager.service
 sudo systemctl enable wpa_supplicant
 sudo systemctl start wpa_supplicant
 sudo systemctl enable connman
