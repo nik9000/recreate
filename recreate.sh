@@ -119,7 +119,7 @@ popd
 cat <<__BASH | tee ~/Bin/esdocs
 #!/bin/bash
 
-~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/reference/index.asciidoc --resource=Elasticsearch/elasticsearch/x-pack/docs/ --chunk 1 --out ~/Code/Elastic/built_docs --open
+~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/reference/index.asciidoc --resource ~/Code/Elastic/Elasticsearch/elasticsearch/x-pack/docs/ --chunk 1 --out ~/Code/Elastic/built_docs --open
 __BASH
 chmod +x ~/Bin/esdocs
 cat <<__BASH | tee ~/Bin/esclientdocs
