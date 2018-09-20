@@ -52,7 +52,7 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3 i3status i3lock xautolock
+sudo dnf install -y i3 i3status i3lock xautolock feh
 
 header "Install connman"
 sudo dnf install -y connman wpa_supplicant bluez openvpn
@@ -60,9 +60,6 @@ sudo systemctl enable wpa_supplicant
 sudo systemctl start wpa_supplicant
 sudo systemctl enable connman
 sudo systemctl start connman
-
-header "Install background manager"
-sudo dnf install -y feh
 
 header "Install VirtualBox"
 sudo dnf install -y VirtualBox
@@ -85,6 +82,9 @@ append ~/.bashrc "source ~/.java_env"
 
 header "Install Slack"
 rpm -q slack || sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
+
+header "Place Pictures"
+cp -r $DIR/Pictures/* ~/Pictures
 
 ## Make sure these are near the end so they can overwrite installs
 header "Setting up config"
