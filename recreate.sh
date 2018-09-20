@@ -111,6 +111,11 @@ cd elasticsearch
 git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
 git remote add desktop manybubbles@desktop-remote:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
 popd
+pushd ~/Code/Elastic
+ls | grep -qF docs || git clone git@github.com:nik9000/docs.git -o nik9000
+cd docs
+git remote add elastic git@github.com:elastic/docs.git || echo "skipping"
+popd
 cat <<__BASH | tee ~/Bin/esdocs
 #!/bin/bash
 
