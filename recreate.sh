@@ -52,7 +52,7 @@ header "Install a nice font"
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
-sudo dnf install -y i3 i3status i3lock xautolock feh
+sudo dnf install -y i3 i3status i3lock xautolock feh xbacklight
 
 header "Install connman"
 sudo dnf install -y connman wpa_supplicant bluez openvpn
