@@ -78,7 +78,7 @@ export JAVA8_HOME=/usr/lib/jvm/java-1.8.0
 export JAVA9_HOME=/usr/lib/jvm/java-9
 export JAVA10_HOME=/usr/lib/jvm/java-10
 export JAVA11_HOME=/usr/lib/jvm/java-11
-export JAVA_HOME=\$JAVA10_HOME
+export JAVA_HOME=\$JAVA11_HOME
 __BASH
 append ~/.bashrc "source ~/.java_env"
 
@@ -98,6 +98,7 @@ cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
 cp $DIR/config/xresources/Xresources ~/.Xresources
 git config --global user.name "Nik Everett"
 git config --global user.email "nik9000@gmail.com"
+git config --global alias.pr '!f() { git fetch elastic pull/$1/head:pr_$1; git checkout pr_$1; }; f'
 sudo tee /etc/sysctl.d/max_user_watches.conf << __CONF
 fs.inotify.max_user_watches=524288
 __CONF
