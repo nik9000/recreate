@@ -1,5 +1,7 @@
 {
     "window.zoomLevel": 0,
     "editor.fontFamily": "Hermit",
-    "editor.renderWhitespace": "boundary"
+    "editor.renderWhitespace": "boundary",
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "editor.rulers": [80, 140]
 }

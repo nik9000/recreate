@@ -125,7 +125,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-	mode hide
+        mode hide
 }
 
 focus_follows_mouse no
