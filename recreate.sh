@@ -62,18 +62,20 @@ sudo systemctl enable wpa_supplicant
 sudo systemctl start wpa_supplicant
 sudo systemctl enable connman
 sudo systemctl start connman
+sudo dnf remove NetworkManager
 
 header "Install VirtualBox"
 sudo dnf install -y VirtualBox
 
 header "Install VSCode"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf install -y code
 
 header "Install Javas"
-sudo dnf install -y java-1.8.0-openjdk-devel java-9-openjdk-devel java-10-openjdk-devel java-11-openjdk-devel
+sudo dnf install -y java-1.8.0-openjdk-devel java-9-openjdk-devel java-11-openjdk-devel
+curl -s $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_10_linux | jq -r .url) > /tmp/openjdk10.tar.gz
+tar -xf /tmp/openjdk10.tar.gz
 cat <<__BASH | tee ~/.java_env
 export JAVA8_HOME=/usr/lib/jvm/java-1.8.0
 export JAVA9_HOME=/usr/lib/jvm/java-9
@@ -85,6 +87,15 @@ append ~/.bashrc "source ~/.java_env"
 
 header "Install Slack"
 rpm -q slack || sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
+
+header "Install Docker"
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf -y install docker-ce
+sudo systemctl start docker
+sudo systemctl enable docker
 
 header "Place Pictures"
 cp -r $DIR/Pictures/* ~/Pictures
