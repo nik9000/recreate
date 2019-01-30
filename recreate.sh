@@ -74,8 +74,12 @@ sudo dnf install -y code
 
 header "Install Javas"
 sudo dnf install -y java-1.8.0-openjdk-devel java-9-openjdk-devel java-11-openjdk-devel
-curl -s $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_10_linux | jq -r .url) > /tmp/openjdk10.tar.gz
-tar -xf /tmp/openjdk10.tar.gz
+pushd /tmp
+curl -s $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_10_linux | jq -r .url) > openjdk10.tar.gz
+tar -xf openjdk10.tar.gz
+sudo mv jdk-10* /usr/lib/jvm/java-10
+sudo chown -R root:root /usr/lib/jvm/java-10
+popd
 cat <<__BASH | tee ~/.java_env
 export JAVA8_HOME=/usr/lib/jvm/java-1.8.0
 export JAVA9_HOME=/usr/lib/jvm/java-9
