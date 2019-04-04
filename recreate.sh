@@ -56,13 +56,13 @@ sudo dnf install -y i3 i3status i3lock xautolock feh xbacklight scrot
 
 header "Install connman"
 sudo dnf install -y connman wpa_supplicant bluez openvpn
-sudo systemctl stop NetworkManager.service
-sudo systemctl disable NetworkManager.service
+sudo systemctl stop NetworkManager.service || true
+sudo systemctl disable NetworkManager.service || true
 sudo systemctl enable wpa_supplicant
 sudo systemctl start wpa_supplicant
 sudo systemctl enable connman
 sudo systemctl start connman
-sudo dnf remove NetworkManager
+sudo dnf remove NetworkManager || true
 
 header "Install VirtualBox"
 sudo dnf install -y VirtualBox
@@ -73,19 +73,28 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo dnf install -y code
 
 header "Install Javas"
-sudo dnf install -y java-1.8.0-openjdk-devel java-9-openjdk-devel java-11-openjdk-devel
-pushd /tmp
-curl -s $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_10_linux | jq -r .url) > openjdk10.tar.gz
-tar -xf openjdk10.tar.gz
-sudo mv jdk-10* /usr/lib/jvm/java-10
-sudo chown -R root:root /usr/lib/jvm/java-10
-popd
+install_java() {
+    VERSION=$1
+    echo "Downloading java $VERSION"
+    cd /tmp
+    curl $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_${VERSION}_linux | jq -r .url) > openjdk${VERSION}.tar.gz
+    tar -xf openjdk${VERSION}.tar.gz
+    sudo rm -rf /usr/lib/jvm/java-${VERSION}
+    sudo mv jdk-${VERSION}* /usr/lib/jvm/java-${VERSION}
+    sudo chown -R root:root /usr/lib/jvm/java-${VERSION}
+}
+sudo dnf install -y java-1.8.0-openjdk-devel
+install_java  9
+install_java 10
+install_java 11
+install_java 12
 cat <<__BASH | tee ~/.java_env
 export JAVA8_HOME=/usr/lib/jvm/java-1.8.0
 export JAVA9_HOME=/usr/lib/jvm/java-9
 export JAVA10_HOME=/usr/lib/jvm/java-10
 export JAVA11_HOME=/usr/lib/jvm/java-11
-export JAVA_HOME=\$JAVA11_HOME
+export JAVA12_HOME=/usr/lib/jvm/java-12
+export JAVA_HOME=\$JAVA12_HOME
 __BASH
 append ~/.bashrc "source ~/.java_env"
 
