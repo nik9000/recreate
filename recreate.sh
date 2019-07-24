@@ -54,16 +54,6 @@ sudo dnf install -y pcaro-hermit-fonts.noarch
 header "Install window manager"
 sudo dnf install -y i3 i3status i3lock xautolock feh xbacklight scrot
 
-header "Install connman"
-sudo dnf install -y connman wpa_supplicant bluez openvpn
-sudo systemctl stop NetworkManager.service || true
-sudo systemctl disable NetworkManager.service || true
-sudo systemctl enable wpa_supplicant
-sudo systemctl start wpa_supplicant
-sudo systemctl enable connman
-sudo systemctl start connman
-sudo dnf remove NetworkManager || true
-
 header "Install VirtualBox"
 sudo dnf install -y VirtualBox
 
@@ -71,13 +61,15 @@ header "Install VSCode"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf install -y code
+code --help > /dev/null # run code to create the config files
 
 header "Install Javas"
+sudo dnf install -y jq
 install_java() {
     VERSION=$1
     echo "Downloading java $VERSION"
     cd /tmp
-    curl $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_${VERSION}_linux | jq -r .url) > openjdk${VERSION}.tar.gz
+    [ -f openjdk${VERSION}.tar.gz ] || curl $(curl -s https://jvm-catalog.elastic.co/jdk/latest_openjdk_${VERSION}_linux | jq -r .url) > openjdk${VERSION}.tar.gz
     tar -xf openjdk${VERSION}.tar.gz
     sudo rm -rf /usr/lib/jvm/java-${VERSION}
     sudo mv jdk-${VERSION}* /usr/lib/jvm/java-${VERSION}
@@ -99,14 +91,15 @@ __BASH
 append ~/.bashrc "source ~/.java_env"
 
 header "Install Slack"
-rpm -q slack || sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.3.1-0.1.fc21.x86_64.rpm
+rpm -q slack || sudo dnf install -y https://downloads.slack-edge.com/linux_releases/slack-3.4.2-0.1.fc21.x86_64.rpm
 
 header "Install Docker"
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager \
     --add-repo \
     https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf -y install docker-ce
+sudo dnf config-manager --set-enabled docker-ce-test
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
 sudo systemctl start docker
 sudo systemctl enable docker
 
