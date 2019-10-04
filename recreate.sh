@@ -49,6 +49,13 @@ sudo dnf install -y vim
 append ~/.bashrc "export EDITOR=vim"
 
 header "Install a nice font"
+[ -f /usr/share/fonts/pcaro-hermit ] || {
+    sudo mkdir -p /usr/share/fonts/pcaro-hermit
+    pushd /usr/share/fonts/pcaro-hermit
+    curl https://pcaro.es/d/otf-hermit-2.0.tar.gz | sudo tar xz
+    popd
+}
+
 sudo dnf install -y pcaro-hermit-fonts.noarch
 
 header "Install window manager"
