@@ -1,23 +1,3 @@
-#!/bin/bash
-
-set -e
-set +o pipefail
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-header() {
-    printf "==================== %-30s ====================\n" "$1"
-}
-
-append() {
-    FILE="$1"
-    LINE="$2"
-    grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
-}
-
-header "Caching sudo privileges"
-sudo echo "got 'em"
-
 header "Creating ~/Bin"
 mkdir -p ~/Bin
 
@@ -38,31 +18,6 @@ xrandr --output eDP1 --auto --output DP1 --auto --right-of eDP1
 __BASH
 chmod +x ~/Bin/multi-monitor
 
-header "Add rpm fusion"
-sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-header "Update"
-sudo dnf update -y
-
-header "Install vim"
-sudo dnf install -y vim
-append ~/.bashrc "export EDITOR=vim"
-
-header "Install a nice font"
-[ -f /usr/share/fonts/pcaro-hermit ] || {
-    sudo mkdir -p /usr/share/fonts/pcaro-hermit
-    pushd /usr/share/fonts/pcaro-hermit
-    curl https://pcaro.es/d/otf-hermit-2.0.tar.gz | sudo tar xz
-    popd
-}
-
-sudo dnf install -y pcaro-hermit-fonts.noarch
-
-header "Install window manager"
-sudo dnf install -y i3 i3status i3lock xautolock feh xbacklight scrot
-
-header "Install VirtualBox"
-sudo dnf install -y VirtualBox
 
 header "Install VSCode"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -115,42 +70,8 @@ cp -r $DIR/Pictures/* ~/Pictures
 
 ## Make sure these are near the end so they can overwrite installs
 header "Setting up config"
-mkdir -p ~/.config/i3
-cp $DIR/config/i3/config ~/.config/i3/config
-mkdir -p ~/.config/i3status
-cp $DIR/config/i3status/config ~/.config/i3status/config
 cp $DIR/config/vscode/settings.json ~/.config/Code/User/settings.json
-cp $DIR/config/xresources/Xresources ~/.Xresources
-git config --global user.name "Nik Everett"
-git config --global user.email "nik9000@gmail.com"
-git config --global alias.pr '!f() { git fetch elastic pull/$1/head:pr_$1; git checkout pr_$1; }; f'
 sudo tee /etc/sysctl.d/max_user_watches.conf << __CONF
 fs.inotify.max_user_watches=524288
 __CONF
 append ~/.bashrc "export PATH=\$PATH:~/Bin"
-
-header "Code"
-mkdir -p ~/Code/Elastic/Elasticsearch
-pushd ~/Code/Elastic/Elasticsearch
-ls | grep -qF elasticsearch || git clone git@github.com:nik9000/elasticsearch.git -o nik9000
-cd elasticsearch
-git remote add elastic git@github.com:elastic/elasticsearch.git || echo "skipping"
-git remote add desktop manybubbles@desktop-remote:/home/manybubbles/Workspaces/Elasticsearch/master/elasticsearch || echo "skipping"
-popd
-pushd ~/Code/Elastic
-ls | grep -qF docs || git clone git@github.com:nik9000/docs.git -o nik9000
-cd docs
-git remote add elastic git@github.com:elastic/docs.git || echo "skipping"
-popd
-cat <<__BASH | tee ~/Bin/esdocs
-#!/bin/bash
-
-~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/reference/index.asciidoc --resource ~/Code/Elastic/Elasticsearch/elasticsearch/x-pack/docs/ --chunk 1 --out ~/Code/Elastic/built_docs --open
-__BASH
-chmod +x ~/Bin/esdocs
-cat <<__BASH | tee ~/Bin/esclientdocs
-#!/bin/bash
-
-~/Code/Elastic/docs/build_docs.pl --doc ~/Code/Elastic/Elasticsearch/elasticsearch/docs/java-rest/index.asciidoc --chunk 1 --out ~/Code/Elastic/built_docs --open
-__BASH
-chmod +x ~/Bin/esclientdocs
