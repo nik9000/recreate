@@ -91,7 +91,7 @@ tmp
 PASSWD
 
 echo Intalling basic packages
-pacman -S --noconfirm iwd dhcpcd openssh bash sudo rxvt-unicode-terminfo rsync mesa
+pacman -S --noconfirm iwd dhcpcd openssh bash sudo rxvt-unicode-terminfo rsync mesa xf86-video-intel
 systemctl enable iwd
 systemctl enable dhcpcd@wlan0
 systemctl enable sshd

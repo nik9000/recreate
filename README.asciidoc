@@ -17,7 +17,7 @@ passwd
 
 On working laptop:
 ```
-export IP=192.168.86.242
+export IP=192.168.86.248
 ssh-copy-id root@$IP
 export CRYPTKEY=<key>
 sed s/CRYPTKEY/$CRYPTKEY/ stage1.sh | ssh root@$IP bash
@@ -32,8 +32,8 @@ passwd manybubles
 ```
 
 ```
-
+export DPI=low
 ssh-copy-id $IP
-rsync stage2.sh config $IP:. && ssh -t $IP sudo bash stage2.sh
+rsync -a stage2.sh config $IP:. && ssh -t $IP "export DPI=$DPI; sudo -E bash stage2.sh" && ssh -t $IP rm -rf stage2.sh config
 ```
 
