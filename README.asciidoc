@@ -35,5 +35,6 @@ passwd manybubles
 export DPI=low
 ssh-copy-id $IP
 rsync -a stage2.sh config $IP:. && ssh -t $IP "export DPI=$DPI; sudo -E bash stage2.sh" && ssh -t $IP rm -rf stage2.sh config
+rsync -a ~/.ssh $IP:.
 ```
 
