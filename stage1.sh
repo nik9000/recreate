@@ -91,9 +91,9 @@ tmp
 PASSWD
 
 echo Intalling basic packages
-pacman -S --noconfirm iwd dhcpcd openssh bash sudo rxvt-unicode-terminfo rsync mesa xf86-video-intel
+pacman -S --noconfirm iwd openssh bash sudo rxvt-unicode-terminfo rsync mesa xf86-video-intel
 systemctl enable iwd
-systemctl enable dhcpcd@wlan0
+systemctl enable systemd-resolved
 systemctl enable sshd
 
 echo Setting up sudoers
@@ -101,3 +101,12 @@ cat <<SUDOERS > /etc/sudoers
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
 SUDOERS
+
+echo Setting up dhcp
+mkdir -p /etc/iwd
+cat <<CONF > /etc/iwd/main.conf
+[General]
+NameResolvingService=systemd
+EnableNetworkConfiguration=true
+CONF
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf

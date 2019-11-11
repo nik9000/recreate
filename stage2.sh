@@ -76,8 +76,8 @@ echo Setup VSCode
 install code
 sudo -u manybubbles bash <<BASH
   set -xeo pipefail
-  mkdir -p "~/.config/Code - OSS/User"
-  cp config/vscode/settings.json "~/.config/Code - OSS/User/settings.json"
+  mkdir -p "$HOME/.config/Code - OSS/User"
+  cp config/vscode/settings.json "$HOME/.config/Code - OSS/User/settings.json"
 BASH
 sudo tee /etc/sysctl.d/max_user_watches.conf << CONF
   fs.inotify.max_user_watches=524288

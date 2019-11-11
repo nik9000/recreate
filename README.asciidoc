@@ -11,7 +11,7 @@ iwctl
 dhcpcd wlan0
 ping www.google.com -c1
 systemctl start sshd
-ifconfig | grep inet
+ip address show
 passwd
 ```
 
@@ -23,10 +23,11 @@ export CRYPTKEY=<key>
 sed s/CRYPTKEY/$CRYPTKEY/ stage1.sh | ssh root@$IP bash
 ```
 
-Reboot new laptop.
+Reboot new laptop. Password is `tmp`.
 
 On new laptop:
 ```
+passwd
 usesradd -m -G wheel -s /bin/bash manybubbles
 passwd manybubles
 ```
