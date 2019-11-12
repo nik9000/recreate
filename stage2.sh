@@ -50,13 +50,15 @@ install lightdm lightdm-gtk-greeter accountsservice
 systemctl enable lightdm
 
 echo Setup i3
-install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils
+install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils dunst
 sudo -u manybubbles bash <<BASH
   set -xeo pipefail
   mkdir -p ~/.config/i3
   cp config/i3/config ~/.config/i3/config
   mkdir -p ~/.config/i3status
   cp config/i3status/config ~/.config/i3status/config
+  mkdir -p ~/.config/dunst
+  cp config/dunst/dunstrc ~/.config/dunst/dunstrc
   cp config/xresources/$DPI/Xresources ~/.Xresources
 BASH
 
