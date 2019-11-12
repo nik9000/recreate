@@ -6,32 +6,33 @@ timedatectl set-ntp true
 lvremove fedora/home -y || true
 lvremove fedora/root -y || true
 lvremove fedora/swap -y || true
-umount /dev/sda1 || true
-swapoff /dev/sda2 || true
+umount /dev/nvme0n1p1 || true
+swapoff /dev/nvme0n1p2 || true
 umount /dev/mapper/cryptroot || true
 cryptsetup close cryptroot || true
-sfdisk /dev/sda << SFDISK
+sleep 1
+sfdisk /dev/nvme0n1 << SFDISK
 label: gpt
 
-/dev/sda1 : size= 200MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
-/dev/sda2 : size=   4GiB, type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
-/dev/sda3 :               type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
+/dev/nvme0n1p1 : size= 200MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+/dev/nvme0n1p2 : size=   4GiB, type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+/dev/nvme0n1p3 :               type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
 SFDISK
 
 echo Setting up /
-echo -n asdf | cryptsetup -v luksFormat /dev/sda3 -
-echo -n asdf | cryptsetup open --key-file - /dev/sda3 cryptroot
+echo -n CRYPTKEY | cryptsetup -v luksFormat /dev/nvme0n1p3 -
+echo -n CRYPTKEY | cryptsetup open --key-file - /dev/nvme0n1p3 cryptroot
 mkfs.ext4 /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
-mkfs.fat -F32 /dev/sda1
+mkfs.fat -F32 /dev/nvme0n1p1
 
 echo Setting up /boot
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
 
 echo Setting up swap
-mkswap /dev/sda2
-swapon /dev/sda2
+mkswap /dev/nvme0n1p2
+swapon /dev/nvme0n1p2
 
 echo Setting up mirrors
 pacman -Sy --noconfirm pacman-contrib
@@ -82,7 +83,7 @@ title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options cryptdevice=/dev/sda3:cryptroot root=/dev/mapper/cryptroot
+options cryptdevice=/dev/nvme0n1p3:cryptroot root=/dev/mapper/cryptroot
 CONF
 bootctl update
 cat <<PASSWD | passwd
@@ -94,6 +95,7 @@ echo Intalling basic packages
 pacman -S --noconfirm iwd openssh bash sudo rxvt-unicode-terminfo rsync mesa xf86-video-intel
 systemctl enable iwd
 systemctl enable systemd-resolved
+systemctl start systemd-resolved
 systemctl enable sshd
 
 echo Setting up sudoers
