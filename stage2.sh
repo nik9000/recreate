@@ -50,7 +50,7 @@ install lightdm lightdm-gtk-greeter accountsservice
 systemctl enable lightdm
 
 echo Setup i3
-install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils dunst
+install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils notification-daemon libnotify dunst
 sudo -u manybubbles bash <<BASH
   set -xeo pipefail
   mkdir -p ~/.config/i3
@@ -70,6 +70,7 @@ sudo -u manybubbles bash <<BASH
   git config --global user.email "nik9000@gmail.com"
   git config --global alias.pr '!f() { git fetch elastic pull/$1/head:pr_$1; git checkout pr_$1; }; f'
 BASH
+install_aur bash-completion-git
 
 echo Setup firefox
 install firefox
