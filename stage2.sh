@@ -61,6 +61,8 @@ sudo -u manybubbles bash <<BASH
   cp config/dunst/dunstrc ~/.config/dunst/dunstrc
   cp config/xresources/$DPI/Xresources ~/.Xresources
 BASH
+install_aur consolas-font
+
 
 echo Setup git
 install git
