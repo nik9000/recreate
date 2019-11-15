@@ -68,7 +68,7 @@ sudo -u manybubbles bash <<BASH
   set -xeo pipefail
   git config --global user.name "Nik Everett"
   git config --global user.email "nik9000@gmail.com"
-  git config --global alias.pr '!f() { git fetch elastic pull/$1/head:pr_$1; git checkout pr_$1; }; f'
+  git config --global alias.pr '!f() { git fetch elastic pull/\$1/head:pr_\$1; git checkout pr_\$1; }; f'
 BASH
 install_aur bash-completion-git
 
