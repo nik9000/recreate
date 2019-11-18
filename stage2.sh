@@ -105,4 +105,4 @@ sudo -u manybubbles bash <<BASH
   set -xeo pipefail
   cp config/ssh-agent.sh .ssh-agent.sh
 BASH
-append ~/.bashrc "source .ssh-agent.sh"
+append ~/.bashrc "source ~/.ssh-agent.sh"
