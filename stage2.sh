@@ -106,3 +106,9 @@ sudo -u manybubbles bash <<BASH
   cp config/ssh-agent.sh .ssh-agent.sh
 BASH
 append ~/.bashrc "source ~/.ssh-agent.sh"
+
+echo Setup input
+sudo -u manybubbles bash <<BASH
+  set -xeo pipefail
+  cp config/inputrc ~/.inputrc
+BASH
