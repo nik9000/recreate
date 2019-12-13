@@ -15,8 +15,8 @@ install() {
 install_aur() {
   sudo -u manybubbles bash <<BASH
     set -xeo pipefail
-    mkdir -p Code/ArchUserRepository
-    cd Code/ArchUserRepository
+    mkdir -p ~/Code/ArchUserRepository
+    cd ~/Code/ArchUserRepository
     if [ -e $1 ]; then
       cd $1
       git pull | grep 'Already up to date.' || rm $1*.pkg.tar.xz
@@ -26,7 +26,7 @@ install_aur() {
     fi
     ls $1*.pkg.tar.xz || makepkg
 BASH
-  pacman -U --noconfirm $(pwd)/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
+  pacman -U --noconfirm ~/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
 }
 
 append ~/.bashrc "export PATH=\$PATH:~/Bin"
