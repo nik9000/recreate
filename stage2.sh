@@ -26,7 +26,7 @@ install_aur() {
     fi
     ls $1*.pkg.tar.xz || makepkg
 BASH
-  pacman -U --noconfirm ~/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
+  pacman -U --noconfirm ~manybubbles/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
 }
 
 append ~/.bashrc "export PATH=\$PATH:~/Bin"
