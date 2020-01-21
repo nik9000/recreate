@@ -13,7 +13,7 @@ install() {
 }
 
 install_aur() {
-  sudo -u manybubbles bash <<BASH
+  sudo -u nik9000 bash <<BASH
     set -xeo pipefail
     mkdir -p ~/Code/ArchUserRepository
     cd ~/Code/ArchUserRepository
@@ -26,7 +26,7 @@ install_aur() {
     fi
     ls $1*.pkg.tar.xz || makepkg
 BASH
-  pacman -U --noconfirm ~manybubbles/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
+  pacman -U --noconfirm ~nik9000/Code/ArchUserRepository/$1/$1*.pkg.tar.xz
 }
 
 append ~/.bashrc "export PATH=\$PATH:~/Bin"
@@ -39,7 +39,7 @@ install man base-devel git
 
 echo Setup vim
 install vim
-append ~manybubbles/.bashrc "export EDITOR=vim"
+append ~nik9000/.bashrc "export EDITOR=vim"
 
 echo Grab a nice font
 install fontconfig xorg-font-utils
@@ -51,7 +51,7 @@ systemctl enable lightdm
 
 echo Setup i3
 install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils notification-daemon libnotify dunst
-sudo -u manybubbles bash <<BASH
+sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   mkdir -p ~/.config/i3
   cp config/i3/config ~/.config/i3/config
@@ -66,7 +66,7 @@ install_aur consolas-font
 
 echo Setup git
 install git
-sudo -u manybubbles bash <<BASH
+sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   git config --global user.name "Nik Everett"
   git config --global user.email "nik9000@gmail.com"
@@ -79,7 +79,7 @@ install firefox
 
 echo Setup VSCode
 install code
-sudo -u manybubbles bash <<BASH
+sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   mkdir -p "$HOME/.config/Code - OSS/User"
   cp config/vscode/settings.json "$HOME/.config/Code - OSS/User/settings.json"
@@ -97,18 +97,18 @@ install_aur slack-desktop
 echo Setup docker
 install docker
 systemctl enable docker
-gpasswd -a manybubbles docker
+gpasswd -a nik9000 docker
 
 
 echo Setup ssh agent
-sudo -u manybubbles bash <<BASH
+sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   cp config/ssh-agent.sh .ssh-agent.sh
 BASH
 append ~/.bashrc "source ~/.ssh-agent.sh"
 
 echo Setup input
-sudo -u manybubbles bash <<BASH
+sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   cp config/inputrc ~/.inputrc
 BASH
@@ -116,4 +116,4 @@ BASH
 echo Setup nvm
 install_aur nvm
 # Intentionally not appending init-nvm to bashrc because it is slow
-# append ~/.bashrc "source /usr/share/nvm/init-nvm.sh"
+# append ~nik9000/.bashrc "source /usr/share/nvm/init-nvm.sh"

@@ -20,7 +20,7 @@ On working laptop:
 export IP=192.168.86.249
 ssh-copy-id root@$IP
 export CRYPTKEY=<key>
-sed s/CRYPTKEY/$CRYPTKEY/ stage1.sh | ssh root@$IP bash
+sed s/CRYPTKEY/$CRYPTKEY/ | sed s/HOSTNAME/$HOSTNAME/ | stage1.sh | ssh root@$IP bash
 ```
 
 Reboot new laptop. Password is `tmp`.
@@ -28,14 +28,16 @@ Reboot new laptop. Password is `tmp`.
 On new laptop:
 ```
 passwd
-usesradd -m -G wheel -s /bin/bash manybubbles
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+systemctl restart systemd-resolved
+usesradd -m -G wheel -s /bin/bash nik9000
 passwd manybubles
 ```
 
 ```
-export DPI=high
-ssh-copy-id $IP
-rsync -a stage2.sh config $IP:. && ssh -t $IP "export DPI=$DPI; sudo -E bash stage2.sh" && ssh -t $IP rm -rf stage2.sh config
-rsync -a ~/.ssh $IP:.
+export DPI=low
+ssh-copy-id nik9000@$IP
+rsync -a stage2.sh config nik9000@$IP:. && ssh -t nik9000@$IP "export DPI=$DPI; sudo -E bash stage2.sh" && ssh -t nik9000@$IP rm -rf stage2.sh config
+rsync -a ~/.ssh nik9000@$IP:.
 ```
 
