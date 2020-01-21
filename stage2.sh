@@ -112,3 +112,8 @@ sudo -u manybubbles bash <<BASH
   set -xeo pipefail
   cp config/inputrc ~/.inputrc
 BASH
+
+echo Setup nvm
+install_aur nvm
+# Intentionally not appending init-nvm to bashrc because it is slow
+# append ~/.bashrc "source /usr/share/nvm/init-nvm.sh"
