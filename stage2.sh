@@ -105,7 +105,7 @@ sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   cp config/ssh-agent.sh .ssh-agent.sh
 BASH
-append ~/.bashrc "source ~/.ssh-agent.sh"
+append ~nik9000/.bashrc "source ~/.ssh-agent.sh"
 
 echo Setup input
 sudo -u nik9000 bash <<BASH
@@ -117,3 +117,13 @@ echo Setup nvm
 install_aur nvm
 # Intentionally not appending init-nvm to bashrc because it is slow
 # append ~nik9000/.bashrc "source /usr/share/nvm/init-nvm.sh"
+
+echo Setup java
+sudo pacman -S jdk8-openjdk jdk11-openjdk jdk-openjdk
+install_aur jdk-adoptopenjdk
+append ~nik9000/.bashrc "export JAVA8_HOME=/usr/lib/jvm/java-8-openjdk/"
+append ~nik9000/.bashrc "export JAVA11_HOME=/usr/lib/jvm/java-11-openjdk/"
+append ~nik9000/.bashrc "export JAVA13_HOME=/usr/lib/jvm/java-13-openjdk/"
+append ~nik9000/.bashrc "export JAVA14_HOME=/usr/lib/jvm/java-14-adoptopenjdk/"
+append ~nik9000/.bashrc 'export JAVA_HOME=$JAVA14_HOME'
+append ~nik9000/.bashrc "alias g='$(git rev-parse --show-toplevel)/gradlew --console rich'"
