@@ -119,7 +119,7 @@ install_aur nvm
 # append ~nik9000/.bashrc "source /usr/share/nvm/init-nvm.sh"
 
 echo Setup java
-sudo pacman -S jdk8-openjdk jdk11-openjdk jdk-openjdk
+sudo pacman -Sy jdk8-openjdk jdk11-openjdk jdk-openjdk
 install_aur jdk-adoptopenjdk
 append ~nik9000/.bashrc "export JAVA8_HOME=/usr/lib/jvm/java-8-openjdk/"
 append ~nik9000/.bashrc "export JAVA11_HOME=/usr/lib/jvm/java-11-openjdk/"

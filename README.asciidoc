@@ -17,10 +17,11 @@ passwd
 
 On working laptop:
 ```
-export IP=192.168.86.249
+export IP=192.168.86.36
 ssh-copy-id root@$IP
 export CRYPTKEY=<key>
-sed s/CRYPTKEY/$CRYPTKEY/ | sed s/HOSTNAME/$HOSTNAME/ | stage1.sh | ssh root@$IP bash
+export NEW_HOSTNAME=<hostname>
+sed s/CRYPTKEY/$CRYPTKEY/ stage1.sh | sed s/HOSTNAME/$NEW_HOSTNAME/ | ssh root@$IP bash
 ```
 
 Reboot new laptop. Password is `tmp`.
@@ -31,7 +32,7 @@ passwd
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 systemctl restart systemd-resolved
 usesradd -m -G wheel -s /bin/bash nik9000
-passwd manybubles
+passwd nik9000
 ```
 
 ```

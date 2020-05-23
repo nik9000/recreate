@@ -13,12 +13,12 @@ swapoff -a || true
 umount /dev/mapper/cryptroot || true
 cryptsetup close cryptroot || true
 sleep 1
-sfdisk /dev/sda << SFDISK
+sfdisk /dev/nvme0n1 << SFDISK
 label: gpt
 
-/dev/sda1 : size= 200MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
-/dev/sda2 : size=   4GiB, type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
-/dev/sda3 :               type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
+/dev/nvme0n1p1 : size= 200MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+/dev/nvme0n1p2 : size=   4GiB, type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+/dev/nvme0n1p3 :               type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
 SFDISK
 
 echo Setting up /
@@ -84,7 +84,7 @@ title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options root=/dev/sda3
+options root=/dev/nvme0n1p3
 CONF
 bootctl update
 cat <<PASSWD | passwd
