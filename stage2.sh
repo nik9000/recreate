@@ -124,7 +124,7 @@ install_aur jdk-adoptopenjdk
 append ~nik9000/.bashrc "export JAVA8_HOME=/usr/lib/jvm/java-8-openjdk/"
 append ~nik9000/.bashrc "export JAVA11_HOME=/usr/lib/jvm/java-11-openjdk/"
 append ~nik9000/.bashrc "export JAVA13_HOME=/usr/lib/jvm/java-13-openjdk/"
-append ~nik9000/.bashrc "export JAVA14_HOME=/usr/lib/jvm/java-14-adoptopenjdk/"
+append ~nik9000/.bashrc "export JAVA14_HOME=/usr/lib/jvm/java-14-openjdk/"
 append ~nik9000/.bashrc "export JAVA15_HOME=/usr/lib/jvm/java-15-adoptopenjdk/"
 append ~nik9000/.bashrc 'export JAVA_HOME=$JAVA15_HOME'
 append ~nik9000/.bashrc "alias g='$(git rev-parse --show-toplevel)/gradlew --console rich'"
