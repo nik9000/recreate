@@ -50,7 +50,7 @@ install lightdm lightdm-gtk-greeter accountsservice
 systemctl enable lightdm
 
 echo Setup i3
-install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh xorg-xbacklight scrot rxvt-unicode dmenu alsa-utils notification-daemon libnotify dunst
+install xorg xorg-xinit i3-gaps i3blocks i3lock i3status xautolock feh acpilight scrot rxvt-unicode dmenu alsa-utils notification-daemon libnotify dunst
 sudo -u nik9000 bash <<BASH
   set -xeo pipefail
   mkdir -p ~/.config/i3
@@ -124,7 +124,7 @@ install_aur jdk-adoptopenjdk
 append ~nik9000/.bashrc "export JAVA8_HOME=/usr/lib/jvm/java-8-openjdk/"
 append ~nik9000/.bashrc "export JAVA11_HOME=/usr/lib/jvm/java-11-openjdk/"
 append ~nik9000/.bashrc "export JAVA13_HOME=/usr/lib/jvm/java-13-openjdk/"
-append ~nik9000/.bashrc "export JAVA14_HOME=/usr/lib/jvm/java-14-openjdk/"
+append ~nik9000/.bashrc "export JAVA14_HOME=/home/nik9000/Bin/jdk-14.0.2+12/"
 append ~nik9000/.bashrc "export JAVA15_HOME=/usr/lib/jvm/java-15-adoptopenjdk/"
 append ~nik9000/.bashrc 'export JAVA_HOME=$JAVA15_HOME'
 append ~nik9000/.bashrc "alias g='$(git rev-parse --show-toplevel)/gradlew --console rich'"
