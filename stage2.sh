@@ -64,6 +64,12 @@ BASH
 install_aur consolas-font
 
 
+echo Allow writing to backlight
+cat >/etc/udev/rules.d/backlight.rules <<RULES
+  ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", GROUP="video", MODE="0664"
+RULES
+
+
 echo Setup git
 install git
 sudo -u nik9000 bash <<BASH

@@ -124,13 +124,12 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        font xft:Hermit:medium:size=12:antialiasing=true
         status_command i3status
         mode hide
 }
 
 focus_follows_mouse no
-exec --no-startup-id xinput set-prop "DLL075B:01 06CB:76AF Touchpad" 'libinput Accel Speed' 1
-exec --no-startup-id xinput set-prop "DLL075B:01 06CB:76AF Touchpad" 'libinput Disable While Typing Enabled' 0
 
 # Volume controls
 bindsym XF86AudioMute exec amixer sset 'Master' toggle && killall -s SIGUSR1 i3status
@@ -146,3 +145,4 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 exec --no-startup-id xset dpms 300
 exec --no-startup-id xautolock -time 5 -locker i3lock &
 exec --no-startup-id dunst
+exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' .5
