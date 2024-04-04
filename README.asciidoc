@@ -2,13 +2,11 @@ Rebuild my laptop.
 
 On new laptop:
 ```
-systemctl start iwd
 iwctl
 > station wlan0 scan
 > station wlan0 get-networks
 > station wlan0 connect channel99
 > station wlan0 show
-dhcpcd wlan0
 ping www.google.com -c1
 systemctl start sshd
 ip address show
