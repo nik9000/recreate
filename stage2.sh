@@ -29,7 +29,7 @@ BASH
   pacman -U --noconfirm ~nik9000/Code/ArchUserRepository/$1/$1*.pkg.tar.zst
 }
 
-append nik9000~/.bashrc "export PATH=\$PATH:~/Bin"
+append ~nik9000/.bashrc "export PATH=\$PATH:~/Bin"
 
 echo Update everything we already have
 pacman -Syu --noconfirm
@@ -42,8 +42,7 @@ install vim
 append ~nik9000/.bashrc "export EDITOR=vim"
 
 echo Grab a nice font
-install fontconfig xorg-font-utils
-install_aur otf-hermit
+install fontconfig otf-hermit-nerd 
 
 echo Setup display manager
 install lightdm lightdm-gtk-greeter accountsservice
