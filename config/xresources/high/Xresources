@@ -1,12 +1,19 @@
 Xft.dpi: 220
+Xft*autohint: 0
+Xft*lcdfilter:  lcddefault
+Xft*hintstyle:  hintfull
+Xft*hinting: 0
+Xft*antialias: 1
+Xft*rgba: rgb
 
-URxvt*font: xft:Hermit:medium:size=12:antialiasing=true
-URxvt*boldFont: xft:Hermit:bold:size=12:antialiasing=true:style=medium
-URxvt*italicFont: xft:Hermit:medium:size=12:antialiasing=true:style=medium
-URxvt*boldItalicFont: xft:Hermit:bold:size=12:antialiasing=true:style=medium
+URxvt.font: xft:Fira Code:style=Regular:size:16
+URxvt.boldFont: xft:Fira Code:style=Bold:size:16
+URxvt.italicFont: xft:Fira Code:style=Light:size:16
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
-
+!URxvt.letterSpace: -1
+URxvt.perl-ext-common:-confirm-paste
+URxvt*skipBuiltinGlyphs:    true
 
 
